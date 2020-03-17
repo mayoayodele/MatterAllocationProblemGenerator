@@ -15,7 +15,7 @@ class Parameters:
                             'Small': [1,10],
                             'Medium': [11,20],
                             'Large': [21,30]},
-                'Capacity_Per_Client': {'Actual': [1,47],
+                'Capacity_Per_FE': {'Actual': [1,47],
                             'Small': [1,15],
                             'Medium': [16,30],
                             'Large': [31,45]},
