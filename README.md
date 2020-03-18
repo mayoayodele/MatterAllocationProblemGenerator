@@ -2,18 +2,18 @@
 
 A python based matter allocation problem with the following parameters
 
-Client: The number of clients 
+Client: The number of clients considered in the problem
 
-FE: The number of fee-earners
+FE: This is the total number of fee-earners that are able to work on the considered type of matters irrespective of who the client is
 
-FE_Per_Client: The minimum and maximum number of fee-earners associated with clients
+FE_Per_Client: The minimum and maximum number of fee-earners that are expected to have a relationship with any give client
 
-Capacity_Per_FE: The minimum and maximum capacity per fee-earner
+Capacity_Per_FE: This is the minimum and maximum number of matters a fee-earner can work on simultaneously.
 
-Lifecycle: The minimum and maximum lifecycle per fee-earner
+Lifecycle: This is the minimum and maximum expected lifecycle of any given matter
 
-Jobs_Per_Client: The minimum and maximum number of matters the business is instructed to work on
+Jobs_Per_Client: This is the minimum and maximum number of matters expected to be received from a client per day
 
-Utilisation: The number of matters a fee-earner is currently working on 
+Utilisation: This is the minimum and maximum number of matters a fee-earner is working on before new jobs are assigned
 
   
