@@ -14,7 +14,7 @@ for folder_name, parameters in params.folder_names_and_parameters.items():
         print(path +' already exists')
     for count in range(params.number_of_problems):
         sub_folder_name = 'Problem'+ str(count+1)
-        inner_path = './Data/' + folder_name + '/' + sub_folder_name
+        inner_path = path + '/' + sub_folder_name
         try:
             os.mkdir(inner_path)
         except:
