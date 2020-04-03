@@ -33,12 +33,21 @@ class Parameters:
                             'Large': [0.67,1]}
             }
 
+        folder_names_and_parameters = {}
 
+        folder_name = 'SmallAll'
+        params = {parameter: all_parameters[parameter]['Small'] for parameter in list(all_parameters.keys())}
+        folder_names_and_parameters[folder_name] =params 
 
+        folder_name = 'LargeAll'
+        params = {parameter: all_parameters[parameter]['Large'] for parameter in list(all_parameters.keys())}
+        folder_names_and_parameters[folder_name] =params 
+        
         folder_name = 'MediumAll'
-        medium_params = {parameter: all_parameters[parameter]['Medium'] for parameter in list(all_parameters.keys())}
-        folder_names_and_parameters = {folder_name: medium_params}
+        params = {parameter: all_parameters[parameter]['Medium'] for parameter in list(all_parameters.keys())}
+        folder_names_and_parameters[folder_name] =params
 
+      
 
         for p in all_parameters.keys():
             for size in ['Small', 'Large']:
