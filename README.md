@@ -17,6 +17,14 @@ Jobs_Per_Client: This is the minimum and maximum number of matters expected to b
 Utilisation: This is the minimum and maximum number of matters a fee-earner is working on before new jobs are assigned
 
 
+
+Set these parameters in Problem/Problem_Definition.py
+
+Set the path to the problem ('./Data' in this case) in Problem/Generate_Problems.py
+
+Run Problem/Generate_Problems.py to generate new problems.
+
+
 Each problem contains 4 files:
 1. Client_FE_Lifecyle.txt: contains the lifecycle of each fee-earner per client
 
