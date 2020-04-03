@@ -16,4 +16,11 @@ Jobs_Per_Client: This is the minimum and maximum number of matters expected to b
 
 Utilisation: This is the minimum and maximum number of matters a fee-earner is working on before new jobs are assigned
 
+
+Each problem contains 4 files:
+Client_FE_Lifecyle.txt: contains the lifecycle of each fee-earner per client
+Day_Job_Client.txt: contains the earliest start day, matter id and client id (we use a 28-day period in this study)
+FE_Capacity.txt: contains the capacity of each fee-eaner
+FE_Schedule.txt: contains previously allocated matters and the finish times
+
   
