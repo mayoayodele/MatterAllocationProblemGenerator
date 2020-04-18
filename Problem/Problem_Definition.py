@@ -1,5 +1,6 @@
 import random as r
 from random import randrange
+import copy
 
 class Problem_Definition:
 
@@ -8,19 +9,19 @@ class Problem_Definition:
         self.client_fe_lifecyle = {}
         self.fe_capacity = {}
         self.schedule = {}
-        self.params = params
-        self.number_of_client = params['Client']
-        self.number_of_fe = params['FE']
-        self.min_fe_per_client = params['FE_Per_Client'][0]
-        self.max_fe_per_client = params['FE_Per_Client'][1]
-        self.min_capacity_per_fe = params['Capacity_Per_FE'][0]
-        self.max_capacity_per_fe = params['Capacity_Per_FE'][1]
-        self.min_lifecycle = params['Lifecycle'][0]
-        self.max_lifecycle = params['Lifecycle'][1]
-        self.min_jobs_per_client = params['Jobs_Per_Client'][0]
-        self.max_jobs_per_client = params['Jobs_Per_Client'][1]
-        self.min_utilisation_per_fe = params['Utilisation'][0]
-        self.max_utilisation_per_fe = params['Utilisation'][1]
+        self.params = copy.deepcopy(params)
+        self.number_of_client = self.params['Client']
+        self.number_of_fe = self.params['FE']
+        self.min_fe_per_client = self.params['FE_Per_Client'][0]
+        self.max_fe_per_client = self.params['FE_Per_Client'][1]
+        self.min_capacity_per_fe = self.params['Capacity_Per_FE'][0]
+        self.max_capacity_per_fe = self.params['Capacity_Per_FE'][1]
+        self.min_lifecycle = self.params['Lifecycle'][0]
+        self.max_lifecycle = self.params['Lifecycle'][1]
+        self.min_jobs_per_client = self.params['Jobs_Per_Client'][0]
+        self.max_jobs_per_client = self.params['Jobs_Per_Client'][1]
+        self.min_utilisation_per_fe = self.params['Utilisation'][0]
+        self.max_utilisation_per_fe = self.params['Utilisation'][1]
 
 
         self.fe_indices = list(range(self.number_of_fe))
@@ -28,6 +29,7 @@ class Problem_Definition:
 
 
     def generate_client_jobs(self):
+        fe_capacity = {}
         jobs = []
         fes = []
         capacities = []
@@ -38,12 +40,13 @@ class Problem_Definition:
         for i in self.fe_indices:
             capacities.append(r.randint(self.min_capacity_per_fe,self.max_capacity_per_fe))
 
-        jobs = sorted(jobs)
-        fes = sorted(fes)
-        capacities = sorted(capacities)
+        jobs = sorted(jobs.copy())
+        fes = sorted(fes.copy())
+        capacities = sorted(capacities.copy())
 
-        for j in self.fe_indices:
-            self.fe_capacity[j] = capacities[j] 
+
+        for z in self.fe_indices:
+            fe_capacity[z] = capacities[z] 
 
         job_index = 0
         job_id_count = 0
@@ -51,11 +54,11 @@ class Problem_Definition:
             fes_lifecyles = {}
             fe_indices_temp = self.fe_indices.copy()
             #set job id  and corresponding client id
-            for j in range(jobs[i]):
+            for temp1 in range(jobs[i]):
                 self.job_client[job_index] = i
                 job_index = job_index + 1
             #set lifecyles by client id and fe id
-            for j in range(fes[i]):
+            for temp2 in range(fes[i]):
                 fe_index= r.choice(fe_indices_temp)
                 fe_indices_temp.remove(fe_index)
                 temp_lifecycle = r.randint(self.min_lifecycle,self.max_lifecycle)
@@ -64,18 +67,23 @@ class Problem_Definition:
             client_fes_temp = list(fes_lifecyles.keys())
             
             for j in client_fes_temp:
-                temp_capacity_min = int(round(self.fe_capacity[j] * self.min_utilisation_per_fe))
-                temp_capacity_max = int(round(self.fe_capacity[j] * self.max_utilisation_per_fe))
+                temp_capacity_min = int(round(fe_capacity[j] * self.min_utilisation_per_fe))
+                temp_capacity_max = int(round(fe_capacity[j] * self.max_utilisation_per_fe))
                 temp_utilisation = r.randint(temp_capacity_min, temp_capacity_max)
-                temp_lifecycle = fes_lifecyles[j]
+                temp_duration = fes_lifecyles[j]
                 temp_schedule = {}
-                if(j not in self.schedule):
+                #print('Yes')
+                if(j not in self.schedule.keys()):
                     for k in range(temp_utilisation):
-                        rand = r.randrange(1,temp_lifecycle)
+                        rand = r.randrange(1,temp_duration)
                         temp_schedule['p' + str(job_id_count)] = rand
                         job_id_count = job_id_count +1
                     self.schedule[j] = temp_schedule
+                    self.fe_capacity[j] = fe_capacity[j]
+      
+               
             self.client_fe_lifecyle[i] = fes_lifecyles
+
 
     def get_jobs(self, number_of_subproblems):
         clients = set(self.job_client.values())

@@ -28,9 +28,9 @@ class Parameters:
                             'Medium': [33,64],
                             'Large': [65,96]},
                 'Utilisation': {'Actual': [0,1],
-                            'Small': [0,0.33],
-                            'Medium': [0.34,0.66],
-                            'Large': [0.67,1]}
+                            'Small': [0,0.32],
+                            'Medium': [0.33,0.65],
+                            'Large': [0.66,0.98]}
             }
 
         folder_names_and_parameters = {}
